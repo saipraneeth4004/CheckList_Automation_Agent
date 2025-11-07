@@ -1,0 +1,47 @@
+# Core Framework
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+streamlit==1.29.0
+
+# AI & LangChain - Updated for compatibility
+langchain==0.1.20
+langchain-google-genai==1.0.1
+google-generativeai==0.5.0
+langchain-community==0.0.38
+langchain-core==0.1.52
+langsmith==0.1.65
+
+# Data Processing
+pandas==2.1.4
+numpy==1.26.2
+openpyxl==3.1.2
+xlrd==2.0.1
+
+# PDF Processing
+pdfplumber==0.10.3
+PyPDF2==3.0.1
+
+# File Handling
+python-multipart==0.0.6
+aiofiles==23.2.1
+
+# Utilities - Updated for compatibility
+pydantic==2.5.2
+pydantic-settings==2.1.0
+python-dotenv==1.0.0
+typing-extensions==4.9.0
+
+# HTTP & WebSocket
+httpx==0.25.2
+websockets==12.0
+
+# Session & State Management
+cachetools==5.3.2
+
+# Testing
+pytest==7.4.3
+pytest-asyncio==0.21.1
+
+# Development
+black==23.12.1
+flake8==6.1.0
