@@ -253,9 +253,34 @@ async def generate_document(
                 request.user_data,
                 request.filename
             )
+        elif request.checklist_item_id == "expense_analysis":
+            file_path = doc_generator.generate_expense_analysis(
+                request.user_data,
+                request.filename
+            )
+        elif request.checklist_item_id == "prepayments":
+            file_path = doc_generator.generate_prepayments_schedule(
+                request.user_data,
+                request.filename
+            )
+        elif request.checklist_item_id == "revenue_recognition":
+            file_path = doc_generator.generate_revenue_schedule(
+                request.user_data,
+                request.filename
+            )
+        elif request.checklist_item_id == "fixed_assets":
+            file_path = doc_generator.generate_fixed_assets_register(
+                request.user_data,
+                request.filename
+            )
+        elif request.checklist_item_id == "intercompany":
+            file_path = doc_generator.generate_intercompany_reconciliation(
+                request.user_data,
+                request.filename
+            )
         else:
-            # Generic template
-            columns = request.user_data.get("columns", ["Column1", "Column2", "Column3"])
+            # Generic template with better defaults
+            columns = request.user_data.get("columns", ["Date", "Description", "Amount", "Category", "Notes"])
             file_path = doc_generator.generate_generic_template(
                 request.checklist_item_id,
                 columns,

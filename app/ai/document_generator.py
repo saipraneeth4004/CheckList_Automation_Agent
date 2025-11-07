@@ -284,6 +284,226 @@ class DocumentGenerator:
         
         return filepath
     
+    def generate_expense_analysis(
+        self,
+        data: Dict[str, Any],
+        filename: Optional[str] = None
+    ) -> Path:
+        """Generate expense analysis template"""
+        
+        if filename is None:
+            filename = f"expense_analysis_{datetime.now().strftime('%Y%m%d')}.xlsx"
+        
+        filepath = self.output_dir / filename
+        
+        columns = [
+            'Date',
+            'Expense Category',
+            'Sub-Category',
+            'Description',
+            'Amount',
+            'Budget',
+            'Variance',
+            'Variance %',
+            'Department',
+            'Notes'
+        ]
+        
+        # Add sample data if provided
+        expenses = data.get('expenses', [])
+        rows = []
+        
+        for expense in expenses:
+            rows.append({
+                'Date': expense.get('date', ''),
+                'Expense Category': expense.get('category', ''),
+                'Sub-Category': expense.get('sub_category', ''),
+                'Description': expense.get('description', ''),
+                'Amount': expense.get('amount', 0),
+                'Budget': expense.get('budget', 0),
+                'Variance': expense.get('variance', 0),
+                'Variance %': expense.get('variance_pct', 0),
+                'Department': expense.get('department', ''),
+                'Notes': expense.get('notes', '')
+            })
+        
+        # Add empty rows for user to fill
+        for i in range(20):
+            rows.append({
+                'Date': '',
+                'Expense Category': '',
+                'Sub-Category': '',
+                'Description': '',
+                'Amount': 0,
+                'Budget': 0,
+                'Variance': '=F{}-E{}'.format(len(expenses) + i + 2, len(expenses) + i + 2),
+                'Variance %': '=IF(F{}=0,0,G{}/F{})'.format(len(expenses) + i + 2, len(expenses) + i + 2, len(expenses) + i + 2),
+                'Department': '',
+                'Notes': ''
+            })
+        
+        df = pd.DataFrame(rows, columns=columns)
+        
+        with pd.ExcelWriter(filepath, engine='openpyxl') as writer:
+            df.to_excel(writer, sheet_name='Expense Analysis', index=False)
+            worksheet = writer.sheets['Expense Analysis']
+            self._apply_basic_formatting(worksheet)
+            
+            # Add total row
+            last_row = len(df) + 2
+            worksheet[f'D{last_row}'] = 'TOTAL'
+            worksheet[f'D{last_row}'].font = Font(bold=True)
+            worksheet[f'E{last_row}'] = f'=SUM(E2:E{last_row-1})'
+            worksheet[f'F{last_row}'] = f'=SUM(F2:F{last_row-1})'
+            worksheet[f'G{last_row}'] = f'=SUM(G2:G{last_row-1})'
+            worksheet[f'E{last_row}'].font = Font(bold=True)
+            worksheet[f'F{last_row}'].font = Font(bold=True)
+            worksheet[f'G{last_row}'].font = Font(bold=True)
+        
+        return filepath
+    
+    def generate_prepayments_schedule(
+        self,
+        data: Dict[str, Any],
+        filename: Optional[str] = None
+    ) -> Path:
+        """Generate prepayments schedule template"""
+        
+        if filename is None:
+            filename = f"prepayments_schedule_{datetime.now().strftime('%Y%m%d')}.xlsx"
+        
+        filepath = self.output_dir / filename
+        
+        columns = [
+            'Prepayment Type',
+            'Vendor/Description',
+            'Start Date',
+            'End Date',
+            'Total Amount',
+            'Monthly Amortization',
+            'Current Month',
+            'Remaining Balance',
+            'Account Code'
+        ]
+        
+        df = pd.DataFrame(columns=columns)
+        for i in range(15):
+            df.loc[i] = [''] * len(columns)
+        
+        with pd.ExcelWriter(filepath, engine='openpyxl') as writer:
+            df.to_excel(writer, sheet_name='Prepayments', index=False)
+            worksheet = writer.sheets['Prepayments']
+            self._apply_basic_formatting(worksheet)
+        
+        return filepath
+    
+    def generate_revenue_schedule(
+        self,
+        data: Dict[str, Any],
+        filename: Optional[str] = None
+    ) -> Path:
+        """Generate revenue schedule template"""
+        
+        if filename is None:
+            filename = f"revenue_schedule_{datetime.now().strftime('%Y%m%d')}.xlsx"
+        
+        filepath = self.output_dir / filename
+        
+        columns = [
+            'Revenue Stream',
+            'Customer/Source',
+            'Invoice Number',
+            'Invoice Date',
+            'Amount',
+            'Recognition Period',
+            'Current Month Revenue',
+            'Deferred Revenue',
+            'Account Code'
+        ]
+        
+        df = pd.DataFrame(columns=columns)
+        for i in range(20):
+            df.loc[i] = [''] * len(columns)
+        
+        with pd.ExcelWriter(filepath, engine='openpyxl') as writer:
+            df.to_excel(writer, sheet_name='Revenue Schedule', index=False)
+            worksheet = writer.sheets['Revenue Schedule']
+            self._apply_basic_formatting(worksheet)
+        
+        return filepath
+    
+    def generate_fixed_assets_register(
+        self,
+        data: Dict[str, Any],
+        filename: Optional[str] = None
+    ) -> Path:
+        """Generate fixed assets register template"""
+        
+        if filename is None:
+            filename = f"fixed_assets_register_{datetime.now().strftime('%Y%m%d')}.xlsx"
+        
+        filepath = self.output_dir / filename
+        
+        columns = [
+            'Asset ID',
+            'Asset Description',
+            'Category',
+            'Purchase Date',
+            'Cost',
+            'Accumulated Depreciation',
+            'Net Book Value',
+            'Depreciation Method',
+            'Useful Life (Years)',
+            'Current Month Depreciation',
+            'Location'
+        ]
+        
+        df = pd.DataFrame(columns=columns)
+        for i in range(15):
+            df.loc[i] = [''] * len(columns)
+        
+        with pd.ExcelWriter(filepath, engine='openpyxl') as writer:
+            df.to_excel(writer, sheet_name='Fixed Assets', index=False)
+            worksheet = writer.sheets['Fixed Assets']
+            self._apply_basic_formatting(worksheet)
+        
+        return filepath
+    
+    def generate_intercompany_reconciliation(
+        self,
+        data: Dict[str, Any],
+        filename: Optional[str] = None
+    ) -> Path:
+        """Generate intercompany reconciliation template"""
+        
+        if filename is None:
+            filename = f"intercompany_recon_{datetime.now().strftime('%Y%m%d')}.xlsx"
+        
+        filepath = self.output_dir / filename
+        
+        columns = [
+            'Entity A',
+            'Entity B',
+            'Transaction Description',
+            'Date',
+            'Amount (Entity A)',
+            'Amount (Entity B)',
+            'Difference',
+            'Reconciliation Status',
+            'Notes'
+        ]
+        
+        df = pd.DataFrame(columns=columns)
+        for i in range(15):
+            df.loc[i] = [''] * len(columns)
+        
+        with pd.ExcelWriter(filepath, engine='openpyxl') as writer:
+            df.to_excel(writer, sheet_name='Intercompany Recon', index=False)
+            worksheet = writer.sheets['Intercompany Recon']
+            self._apply_basic_formatting(worksheet)
+        
+        return filepath
+    
     def generate_generic_template(
         self, 
         checklist_item_id: str,
@@ -297,12 +517,16 @@ class DocumentGenerator:
         
         filepath = self.output_dir / filename
         
+        # If no columns provided, use defaults
+        if not columns or columns == ["Column1", "Column2", "Column3"]:
+            columns = ["Date", "Description", "Amount", "Category", "Notes"]
+        
         # Create empty DataFrame with specified columns
         df = pd.DataFrame(columns=columns)
         
         # Add 20 empty rows
         for i in range(20):
-            df.loc[i] = ['' for _ in columns]
+            df.loc[i] = ['' if j < len(columns)-1 else 0 for j in range(len(columns))]
         
         with pd.ExcelWriter(filepath, engine='openpyxl') as writer:
             df.to_excel(writer, sheet_name='Data', index=False)
