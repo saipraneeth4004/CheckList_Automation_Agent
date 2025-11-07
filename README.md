@@ -55,7 +55,7 @@ An AI-driven application that automates the validation of month-end accounting c
 1. **Clone the repository**
    ```bash
    git clone <repository-url>
-   cd CheckList_Automation_Agent
+   cd CheckList_Automation_Agent --(2)
    ```
 
 2. **Create virtual environment**
@@ -63,7 +63,7 @@ An AI-driven application that automates the validation of month-end accounting c
    python -m venv venv
    
    # Windows
-   .\venv\Scripts\activate
+   .\venv\Scripts\activate --0(2)
    
    # Linux/Mac
    source venv/bin/activate
@@ -88,12 +88,12 @@ An AI-driven application that automates the validation of month-end accounting c
 
 1. **Start the FastAPI backend**
    ```bash
-   python -m uvicorn app.main:app --reload --port 8000
+   python -m uvicorn app.main:app --reload --port 8000 --0
    ```
 
 2. **Start the Streamlit frontend** (in a new terminal)
    ```bash
-   streamlit run app/ui/streamlit_app.py
+   streamlit run app/ui/streamlit_app.py  --0
    ```
 
 3. **Access the application**
