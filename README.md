@@ -2,13 +2,17 @@
 
 An AI-driven application that automates the validation of month-end accounting checklists, providing intelligent assistance and automated document generation for incomplete tasks.
 
-## 🌟 Features
-
-- **Automated Checklist Validation**: Upload your month-end folders and get instant validation against standard accounting checklists
-- **AI-Powered Analysis**: Comprehensive document analysis using Google Gemini Flash model
-- **Interactive Assistance**: Conversational AI agent guides you through completing missing items
-- **Smart Document Generation**: Automatically generates missing documents based on your data
-- **User-Friendly Interface**: Clean Streamlit dashboard with real-time status updates
+🌟 Features
+✅ Automated Checklist Validation
+Upload your month-end folders and instantly validate them against standardized accounting checklists.
+🤖 AI-Powered Analysis
+Leverage advanced document intelligence using the Google Gemini Flash model for accurate and fast insights.
+💬 Interactive Assistance
+Get guided support through a conversational AI agent that helps you identify and complete missing items.
+📄 Smart Document Generation
+Automatically generate missing documents based on available data, reducing manual effort.
+🎨 User-Friendly Interface
+Experience a clean and intuitive Streamlit dashboard with real-time status updates and insights.
 
 ## 🏗️ Architecture
 
